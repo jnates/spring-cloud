@@ -1,0 +1,64 @@
+version: '3'
+services:
+    postgres:
+        image: postgres
+        container_name: postgres
+        ports:
+            - "5432:5432"
+        environment:
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DB: bank
+        volumes:
+            - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    eureka:
+        image: eureka
+        container_name: eureka
+        ports:
+            - "1111:1111"
+    api-gateway:
+        image: api-gateway
+        container_name: api-gateway
+        ports:
+            - "9090:9090"
+        links:
+            - eureka:eureka
+    balance:
+        image: balance
+        container_name: balance
+        ports:
+            - "9091:9091"
+        links:
+            - eureka:eureka
+            - postgres:postgres
+    customer:
+        image: customer
+        container_name: customer
+        ports:
+            - "9092:9092"
+        links:
+            - eureka:eureka
+            - postgres:postgres
+    user:
+        image: user
+        container_name: user
+        ports:
+            - "9093:9093"
+        links:
+            - eureka:eureka
+            - postgres:postgres
+    user95:
+        image: user
+        container_name: user95
+        ports:
+            - "9095:9093"
+        links:
+            - eureka:eureka
+            - postgres:postgres
+    user96:
+        image: user
+        container_name: user96
+        ports:
+            - "9096:9093"
+        links:
+            - eureka:eureka
+            - postgres:postgres

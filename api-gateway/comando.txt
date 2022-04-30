@@ -1,0 +1,2 @@
+docker build -t api-gateway .
+docker run -d --name api-gateway -p 9090:9090 --link eureka:eureka api-gateway

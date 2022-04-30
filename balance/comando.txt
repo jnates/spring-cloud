@@ -1,0 +1,2 @@
+docker build -t balance .
+docker run -d --name balance -p 9091:9091 --link eureka:eureka --link postgres:postgres balance

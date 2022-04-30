@@ -1,0 +1,2 @@
+docker build -t user . 
+docker run -d --name user -p 9092:9092 --link eureka:eureka --link postgres:postgres user
